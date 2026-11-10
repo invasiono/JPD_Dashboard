@@ -1,0 +1,1275 @@
+{
+  "app": "NihongoMaster",
+  "version": "3.0.0",
+  "exportedAt": "2026-11-05T12:05:12.501Z",
+  "parts": [
+    {
+      "id": 1,
+      "name": "Phần 1.1: Đồ ăn & Thức uống cơ bản",
+      "desc": "さかな, にく, やさい, カレー...",
+      "color": "blue"
+    },
+    {
+      "id": 2,
+      "name": "Phần 1.2: Món ăn & Đồ uống Katakana",
+      "desc": "ごはん, コーヒー, ビール, ワイン...",
+      "color": "emerald"
+    },
+    {
+      "id": 3,
+      "name": "Phần 1.3: Quốc gia & Giao tiếp nhà hàng",
+      "desc": "ドイツ, フランス, おねがいします...",
+      "color": "amber"
+    },
+    {
+      "id": 4,
+      "name": "Phần 1.4: Số đếm đồ vật thuần Nhật",
+      "desc": "ふたつ, みっつ, よっつ... とお",
+      "color": "purple"
+    },
+    {
+      "id": 5,
+      "name": "Phần 2.1: Số đếm thứ",
+      "desc": "",
+      "color": "rose"
+    },
+    {
+      "id": 6,
+      "name": "Phần 2.2: Giờ / Tháng / năm",
+      "desc": "",
+      "color": "emerald"
+    },
+    {
+      "id": 7,
+      "name": "Phần 2.3: Ngũ hành / Đồ vật, v.v.",
+      "desc": "",
+      "color": "blue"
+    },
+    {
+      "id": 8,
+      "name": "Phần 3.1: Địa điểm / Từ vựng chung",
+      "desc": "",
+      "color": "amber"
+    },
+    {
+      "id": 9,
+      "name": "Phần 3.2: Các ngày / Thứ",
+      "desc": "",
+      "color": "purple"
+    },
+    {
+      "id": 10,
+      "name": "Phần 3.3: Thời gian",
+      "desc": "",
+      "color": "rose"
+    },
+    {
+      "id": 11,
+      "name": "Phần 4.1: Từ vựng",
+      "desc": "",
+      "color": "emerald"
+    },
+    {
+      "id": 12,
+      "name": "Phần 4.2: Từ vựng 2",
+      "desc": "",
+      "color": "blue"
+    },
+    {
+      "id": 13,
+      "name": "Phần 4.3: Các hoạt động",
+      "desc": "",
+      "color": "amber"
+    }
+  ],
+  "words": [
+    {
+      "id": 1,
+      "jp": "さかな",
+      "reading": "さかな",
+      "vn": "Cá",
+      "part": 1,
+      "romaji": "sakana",
+      "isKanji": false
+    },
+    {
+      "id": 2,
+      "jp": "にく",
+      "reading": "にく",
+      "vn": "Thịt",
+      "part": 1,
+      "romaji": "niku",
+      "isKanji": false
+    },
+    {
+      "id": 3,
+      "jp": "ぎゅうにく",
+      "reading": "ぎゅうにく",
+      "vn": "Thịt bò",
+      "part": 1,
+      "romaji": "gyuuniku",
+      "isKanji": false
+    },
+    {
+      "id": 4,
+      "jp": "とりにく",
+      "reading": "とりにく",
+      "vn": "Thịt gà",
+      "part": 1,
+      "romaji": "toriniku",
+      "isKanji": false
+    },
+    {
+      "id": 5,
+      "jp": "ぶたにく",
+      "reading": "ぶたにく",
+      "vn": "Thịt heo",
+      "part": 1,
+      "romaji": "butaniku",
+      "isKanji": false
+    },
+    {
+      "id": 6,
+      "jp": "やさい",
+      "reading": "やさい",
+      "vn": "Rau",
+      "part": 1,
+      "romaji": "yasai",
+      "isKanji": false
+    },
+    {
+      "id": 7,
+      "jp": "イチゴ",
+      "reading": "イチゴ",
+      "vn": "Dâu tây",
+      "part": 1,
+      "romaji": "ichigo",
+      "isKanji": false
+    },
+    {
+      "id": 8,
+      "jp": "リンゴ",
+      "reading": "リンゴ",
+      "vn": "Táo",
+      "part": 1,
+      "romaji": "ringo",
+      "isKanji": false
+    },
+    {
+      "id": 9,
+      "jp": "りょうり",
+      "reading": "りょうり",
+      "vn": "Nấu ăn / món ăn",
+      "part": 1,
+      "romaji": "ryouri",
+      "isKanji": false
+    },
+    {
+      "id": 10,
+      "jp": "カレー",
+      "reading": "カレー",
+      "vn": "Cà ri",
+      "part": 1,
+      "romaji": "karee",
+      "isKanji": false
+    },
+    {
+      "id": 11,
+      "jp": "スープ",
+      "reading": "スープ",
+      "vn": "Súp",
+      "part": 1,
+      "romaji": "suupu",
+      "isKanji": false
+    },
+    {
+      "id": 12,
+      "jp": "とんかつ",
+      "reading": "とんかつ",
+      "vn": "Thịt heo chiên xù",
+      "part": 2,
+      "romaji": "tonkatsu",
+      "isKanji": false
+    },
+    {
+      "id": 13,
+      "jp": "ハンバーグ",
+      "reading": "ハンバーグ",
+      "vn": "Hamburger steak",
+      "part": 2,
+      "romaji": "hanbaagu",
+      "isKanji": false
+    },
+    {
+      "id": 14,
+      "jp": "ごはん",
+      "reading": "ごはん",
+      "vn": "Cơm",
+      "part": 2,
+      "romaji": "gohan",
+      "isKanji": false
+    },
+    {
+      "id": 15,
+      "jp": "ライス",
+      "reading": "ライス",
+      "vn": "Cơm",
+      "part": 2,
+      "romaji": "raisu",
+      "isKanji": false
+    },
+    {
+      "id": 16,
+      "jp": "ジュース",
+      "reading": "ジュース",
+      "vn": "Nước ép",
+      "part": 2,
+      "romaji": "juusu",
+      "isKanji": false
+    },
+    {
+      "id": 17,
+      "jp": "コーヒー",
+      "reading": "コーヒー",
+      "vn": "Cà phê",
+      "part": 2,
+      "romaji": "koohii",
+      "isKanji": false
+    },
+    {
+      "id": 18,
+      "jp": "こうちゃ",
+      "reading": "こうちゃ",
+      "vn": "Trà đen",
+      "part": 2,
+      "romaji": "koucha",
+      "isKanji": false
+    },
+    {
+      "id": 19,
+      "jp": "おちゃ",
+      "reading": "おちゃ",
+      "vn": "Trà",
+      "part": 2,
+      "romaji": "ocha",
+      "isKanji": false
+    },
+    {
+      "id": 20,
+      "jp": "ビール",
+      "reading": "ビール",
+      "vn": "Bia",
+      "part": 2,
+      "romaji": "biiru",
+      "isKanji": false
+    },
+    {
+      "id": 21,
+      "jp": "ワイン",
+      "reading": "ワイン",
+      "vn": "Rượu vang",
+      "part": 2,
+      "romaji": "wain",
+      "isKanji": false
+    },
+    {
+      "id": 22,
+      "jp": "インド",
+      "reading": "インド",
+      "vn": "Ấn Độ",
+      "part": 2,
+      "romaji": "indo",
+      "isKanji": false
+    },
+    {
+      "id": 23,
+      "jp": "ドイツ",
+      "reading": "ドイツ",
+      "vn": "Đức",
+      "part": 3,
+      "romaji": "doitsu",
+      "isKanji": false
+    },
+    {
+      "id": 24,
+      "jp": "フランス",
+      "reading": "フランス",
+      "vn": "Pháp",
+      "part": 3,
+      "romaji": "furansu",
+      "isKanji": false
+    },
+    {
+      "id": 25,
+      "jp": "さいふ",
+      "reading": "さいふ",
+      "vn": "Ví",
+      "part": 3,
+      "romaji": "saifu",
+      "isKanji": false
+    },
+    {
+      "id": 26,
+      "jp": "えいご",
+      "reading": "えいご",
+      "vn": "Tiếng Anh",
+      "part": 3,
+      "romaji": "eigo",
+      "isKanji": false
+    },
+    {
+      "id": 27,
+      "jp": "～ご",
+      "reading": "～ご",
+      "vn": "Ngôn ngữ ~",
+      "part": 3,
+      "romaji": "~go",
+      "isKanji": false
+    },
+    {
+      "id": 28,
+      "jp": "～つ",
+      "reading": "～つ",
+      "vn": "Cách đếm đồ vật",
+      "part": 3,
+      "romaji": "~tsu",
+      "isKanji": false
+    },
+    {
+      "id": 29,
+      "jp": "だれ",
+      "reading": "だれ",
+      "vn": "Ai",
+      "part": 3,
+      "romaji": "dare",
+      "isKanji": false
+    },
+    {
+      "id": 30,
+      "jp": "ちゅうもんをおねがいします",
+      "reading": "ちゅうもんをおねがいします",
+      "vn": "Cho tôi gọi món",
+      "part": 3,
+      "romaji": "chuumon o onegaishimasu",
+      "isKanji": false
+    },
+    {
+      "id": 31,
+      "jp": "Nをおねがいします",
+      "reading": "Nをおねがいします",
+      "vn": "Làm ơn cho tôi N",
+      "part": 3,
+      "romaji": "N o onegaishimasu",
+      "isKanji": false
+    },
+    {
+      "id": 32,
+      "jp": "どうぞ",
+      "reading": "どうぞ",
+      "vn": "Xin mời",
+      "part": 3,
+      "romaji": "douzo",
+      "isKanji": false
+    },
+    {
+      "id": 33,
+      "jp": "ひとつ",
+      "reading": "ひとつ",
+      "vn": "1 cái",
+      "part": 3,
+      "romaji": "hitotsu",
+      "isKanji": false
+    },
+    {
+      "id": 34,
+      "jp": "ふたつ",
+      "reading": "ふたつ",
+      "vn": "2 cái",
+      "part": 4,
+      "romaji": "futatsu",
+      "isKanji": false
+    },
+    {
+      "id": 35,
+      "jp": "みっつ",
+      "reading": "みっつ",
+      "vn": "3 cái",
+      "part": 4,
+      "romaji": "mittsu",
+      "isKanji": false
+    },
+    {
+      "id": 36,
+      "jp": "よっつ",
+      "reading": "よっつ",
+      "vn": "4 cái",
+      "part": 4,
+      "romaji": "yottsu",
+      "isKanji": false
+    },
+    {
+      "id": 37,
+      "jp": "いつつ",
+      "reading": "いつつ",
+      "vn": "5 cái",
+      "part": 4,
+      "romaji": "itsutsu",
+      "isKanji": false
+    },
+    {
+      "id": 38,
+      "jp": "むっつ",
+      "reading": "むっつ",
+      "vn": "6 cái",
+      "part": 4,
+      "romaji": "muttsu",
+      "isKanji": false
+    },
+    {
+      "id": 39,
+      "jp": "ななつ",
+      "reading": "ななつ",
+      "vn": "7 cái",
+      "part": 4,
+      "romaji": "nanatsu",
+      "isKanji": false
+    },
+    {
+      "id": 40,
+      "jp": "やっつ",
+      "reading": "やっつ",
+      "vn": "8 cái",
+      "part": 4,
+      "romaji": "yattsu",
+      "isKanji": false
+    },
+    {
+      "id": 41,
+      "jp": "ここのつ",
+      "reading": "ここのつ",
+      "vn": "9 cái",
+      "part": 4,
+      "romaji": "kokonotsu",
+      "isKanji": false
+    },
+    {
+      "id": 42,
+      "jp": "とお",
+      "reading": "とお",
+      "vn": "10 cái",
+      "part": 4,
+      "romaji": "too",
+      "isKanji": false
+    },
+    {
+      "id": 43,
+      "jp": "いくつ",
+      "reading": "いくつ",
+      "vn": "Bao nhiêu cái",
+      "part": 4,
+      "romaji": "ikutsu",
+      "isKanji": false
+    },
+    {
+      "id": 44,
+      "jp": "月曜日",
+      "reading": "げつようび",
+      "vn": "Thứ 2",
+      "romaji": "getsuyoubi",
+      "part": 5,
+      "isKanji": true
+    },
+    {
+      "id": 45,
+      "jp": "火曜日",
+      "reading": "かようび",
+      "vn": "Thứ 3",
+      "romaji": "kayoubi",
+      "part": 5,
+      "isKanji": true
+    },
+    {
+      "id": 46,
+      "jp": "水曜日",
+      "reading": "すいようび",
+      "vn": "Thứ 4",
+      "romaji": "suiyoubi",
+      "part": 5,
+      "isKanji": true
+    },
+    {
+      "id": 47,
+      "jp": "木曜日",
+      "reading": "もくようび",
+      "vn": "Thứ 5",
+      "romaji": "mokuyoubi",
+      "part": 5,
+      "isKanji": true
+    },
+    {
+      "id": 48,
+      "jp": "金曜日",
+      "reading": "きんようび",
+      "vn": "Thứ 6",
+      "romaji": "kin'youbi",
+      "part": 5,
+      "isKanji": true
+    },
+    {
+      "id": 49,
+      "jp": "土曜日",
+      "reading": "どようび",
+      "vn": "Thứ 7",
+      "romaji": "doyoubi",
+      "part": 5,
+      "isKanji": true
+    },
+    {
+      "id": 50,
+      "jp": "何曜日",
+      "reading": "なんようび",
+      "vn": "Thứ mấy",
+      "romaji": "nan'youbi",
+      "part": 5,
+      "isKanji": true
+    },
+    {
+      "id": 51,
+      "jp": "何月",
+      "reading": "なんがつ",
+      "vn": "tháng mấy",
+      "romaji": "nangatsu",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 52,
+      "jp": "何年",
+      "reading": "なんねん",
+      "vn": "Năm bao nhiêu",
+      "romaji": "nannen",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 53,
+      "jp": "今年",
+      "reading": "ことし",
+      "vn": "Năm nay",
+      "romaji": "kotoshi",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 54,
+      "jp": "一月",
+      "reading": "いちがつ",
+      "vn": "tháng 1",
+      "romaji": "ichigatsu",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 55,
+      "jp": "十二月",
+      "reading": "じゅうにがつ",
+      "vn": "Tháng 12",
+      "romaji": "juunigatsu",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 56,
+      "jp": "時間",
+      "reading": "じかん",
+      "vn": "Thời gian",
+      "romaji": "jikan",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 57,
+      "jp": "何時",
+      "reading": "なんじ",
+      "vn": "Mấy giờ",
+      "romaji": "nanji",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 58,
+      "jp": "何時間",
+      "reading": "なんじかん",
+      "vn": "Mấy tiếng",
+      "romaji": "nanjikan",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 59,
+      "jp": "六分",
+      "reading": "ろっぷん",
+      "vn": "6 phút",
+      "romaji": "roppun",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 60,
+      "jp": "九時",
+      "reading": "くじ",
+      "vn": "9 giờ",
+      "romaji": "kuji",
+      "part": 6,
+      "isKanji": true
+    },
+    {
+      "id": 61,
+      "jp": "月",
+      "reading": "つき",
+      "vn": "mặt trăng",
+      "romaji": "tsuki",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 62,
+      "jp": "花火",
+      "reading": "はなび",
+      "vn": "pháo hoa",
+      "romaji": "hanabi",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 63,
+      "jp": "火",
+      "reading": "ひ",
+      "vn": "lửa",
+      "romaji": "hi",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 64,
+      "jp": "水",
+      "reading": "みず",
+      "vn": "nước",
+      "romaji": "mizu",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 65,
+      "jp": "木",
+      "reading": "き",
+      "vn": "Cây / gỗ",
+      "romaji": "ki",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 66,
+      "jp": "お金",
+      "reading": "おかね",
+      "vn": "tiền",
+      "romaji": "okane",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 67,
+      "jp": "土",
+      "reading": "つち",
+      "vn": "Đất",
+      "romaji": "tsuchi",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 68,
+      "jp": "何",
+      "reading": "なん/なに",
+      "vn": "Cái gì",
+      "romaji": "nan / nani",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 69,
+      "jp": "何人",
+      "reading": "なんにん",
+      "vn": "Mấy người",
+      "romaji": "nannin",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 70,
+      "jp": "分かります",
+      "reading": "わかります",
+      "vn": "Hiểu",
+      "romaji": "wakarimasu",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 71,
+      "jp": "半分",
+      "reading": "はんぶん",
+      "vn": "Một nửa",
+      "romaji": "hanbun",
+      "part": 7,
+      "isKanji": true
+    },
+    {
+      "id": 72,
+      "jp": "いま",
+      "reading": "いま",
+      "vn": "Bây giờ",
+      "romaji": "ima",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 73,
+      "jp": "ごぜん",
+      "reading": "ごぜん",
+      "vn": "Buổi sáng / AM",
+      "romaji": "gozen",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 74,
+      "jp": "ごご",
+      "reading": "ごご",
+      "vn": "Buổi chiều / PM",
+      "romaji": "gogo",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 75,
+      "jp": "ひる",
+      "reading": "ひる",
+      "vn": "Buổi trưa",
+      "romaji": "hiru",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 76,
+      "jp": "ぎんこう",
+      "reading": "ぎんこう",
+      "vn": "Ngân hàng",
+      "romaji": "ginkou",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 77,
+      "jp": "たいいくかん",
+      "reading": "たいいくかん",
+      "vn": "Nhà thi đấu",
+      "romaji": "taiikukan",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 78,
+      "jp": "としょかん",
+      "reading": "としょかん",
+      "vn": "Thư viện",
+      "romaji": "toshokan",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 79,
+      "jp": "びょういん",
+      "reading": "びょういん",
+      "vn": "Bệnh viện",
+      "romaji": "byouin",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 80,
+      "jp": "ゆうびんきょく",
+      "reading": "ゆうびんきょく",
+      "vn": "Bưu điện",
+      "romaji": "yuubinkyoku",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 81,
+      "jp": "じゅぎょう",
+      "reading": "じゅぎょう",
+      "vn": "Tiết học",
+      "romaji": "jugyou",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 82,
+      "jp": "テスト",
+      "reading": "テスト",
+      "vn": "Bài kiểm tra",
+      "romaji": "tesuto",
+      "part": 8,
+      "isKanji": false
+    },
+    {
+      "id": 83,
+      "jp": "やすみ",
+      "reading": "やすみ",
+      "vn": "Ngày nghỉ",
+      "romaji": "yasumi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 84,
+      "jp": "～ようび",
+      "reading": "～ようび",
+      "vn": "Thứ ~",
+      "romaji": "～youbi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 85,
+      "jp": "げつようび",
+      "reading": "げつようび",
+      "vn": "Thứ hai",
+      "romaji": "getsuyoubi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 86,
+      "jp": "かようび",
+      "reading": "かようび",
+      "vn": "Thứ ba",
+      "romaji": "kayoubi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 87,
+      "jp": "すいようび",
+      "reading": "すいようび",
+      "vn": "Thứ tư",
+      "romaji": "suiyoubi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 88,
+      "jp": "もくようび",
+      "reading": "もくようび",
+      "vn": "Thứ năm",
+      "romaji": "mokuyoubi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 89,
+      "jp": "きんようび",
+      "reading": "きんようび",
+      "vn": "Thứ sáu",
+      "romaji": "kin'youbi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 90,
+      "jp": "どようび",
+      "reading": "どようび",
+      "vn": "Thứ bảy",
+      "romaji": "doyoubi",
+      "part": 9,
+      "isKanji": false
+    },
+    {
+      "id": 91,
+      "jp": "日ようび",
+      "reading": "にちようび",
+      "vn": "Chủ nhật",
+      "romaji": "nichiyoubi",
+      "part": 9,
+      "isKanji": true
+    },
+    {
+      "id": 92,
+      "jp": "じかん",
+      "reading": "じかん",
+      "vn": "Thời gian",
+      "romaji": "jikan",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 93,
+      "jp": "～じ",
+      "reading": "～じ",
+      "vn": "~ giờ",
+      "romaji": "～ji",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 94,
+      "jp": "～ふん/ぷん",
+      "reading": "～ふん/ぷん",
+      "vn": "~ phút",
+      "romaji": "～fun / pun",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 95,
+      "jp": "～じはん",
+      "reading": "～じはん",
+      "vn": "~ giờ rưỡi",
+      "romaji": "～jihan",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 96,
+      "jp": "ごふん",
+      "reading": "ごふん",
+      "vn": "5 phút",
+      "romaji": "gofun",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 97,
+      "jp": "じゅっぷん",
+      "reading": "じゅっぷん",
+      "vn": "10 phút",
+      "romaji": "juppun",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 98,
+      "jp": "さんじゅっぷん",
+      "reading": "さんじゅっぷん",
+      "vn": "30 phút",
+      "romaji": "sanjuppun",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 99,
+      "jp": "よじ",
+      "reading": "よじ",
+      "vn": "4 giờ",
+      "romaji": "yoji",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 100,
+      "jp": "しちじ",
+      "reading": "しちじ",
+      "vn": "7 giờ",
+      "romaji": "shichiji",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 101,
+      "jp": "くじ",
+      "reading": "くじ",
+      "vn": "9 giờ",
+      "romaji": "kuji",
+      "part": 10,
+      "isKanji": false
+    },
+    {
+      "id": 102,
+      "jp": "おすし",
+      "reading": "おすし",
+      "vn": "Sushi",
+      "romaji": "osushi",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 103,
+      "jp": "バス",
+      "reading": "バス",
+      "vn": "Xe buýt",
+      "romaji": "basu",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 104,
+      "jp": "べんとう",
+      "reading": "べんとう",
+      "vn": "Cơm hộp",
+      "romaji": "bentou",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 105,
+      "jp": "りゅうがくせい",
+      "reading": "りゅうがくせい",
+      "vn": "Du học sinh",
+      "romaji": "ryuugakusei",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 106,
+      "jp": "いちねん",
+      "reading": "いちねん",
+      "vn": "1 năm",
+      "romaji": "ichinen",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 107,
+      "jp": "はる",
+      "reading": "はる",
+      "vn": "Mùa xuân",
+      "romaji": "haru",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 108,
+      "jp": "なつ",
+      "reading": "なつ",
+      "vn": "Mùa hè",
+      "romaji": "natsu",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 109,
+      "jp": "あき",
+      "reading": "あき",
+      "vn": "Mùa thu",
+      "romaji": "aki",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 110,
+      "jp": "ふゆ",
+      "reading": "ふゆ",
+      "vn": "Mùa đông",
+      "romaji": "fuyu",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 111,
+      "jp": "ゴールデンウイーク",
+      "reading": "ゴールデンウイーク",
+      "vn": "Tuần lễ vàng",
+      "romaji": "gooruden'uiiku",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 112,
+      "jp": "なに",
+      "reading": "なに",
+      "vn": "Cái gì",
+      "romaji": "nani",
+      "part": 11,
+      "isKanji": false
+    },
+    {
+      "id": 113,
+      "jp": "スケジュール",
+      "reading": "スケジュール",
+      "vn": "Lịch trình",
+      "romaji": "sukejuuru",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 114,
+      "jp": "アルバイト",
+      "reading": "アルバイト",
+      "vn": "Làm thêm",
+      "romaji": "arubaito",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 115,
+      "jp": "パーティー",
+      "reading": "パーティー",
+      "vn": "Bữa tiệc",
+      "romaji": "paateii",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 116,
+      "jp": "バーベキュー",
+      "reading": "バーベキュー",
+      "vn": "Tiệc BBQ",
+      "romaji": "baabekyuu",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 117,
+      "jp": "はなび",
+      "reading": "はなび",
+      "vn": "Pháo hoa",
+      "romaji": "hanabi",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 119,
+      "jp": "ホームステイ",
+      "reading": "ホームステイ",
+      "vn": "Ở homestay",
+      "romaji": "hoomusutei",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 120,
+      "jp": "まつり",
+      "reading": "まつり",
+      "vn": "Lễ hội",
+      "romaji": "matsuri",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 121,
+      "jp": "うみ",
+      "reading": "うみ",
+      "vn": "Biển",
+      "romaji": "umi",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 122,
+      "jp": "こうえん",
+      "reading": "こうえん",
+      "vn": "Công viên",
+      "romaji": "kouen",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 123,
+      "jp": "さくら",
+      "reading": "さくら",
+      "vn": "Hoa anh đào",
+      "romaji": "sakura",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 124,
+      "jp": "おさけ",
+      "reading": "おさけ",
+      "vn": "Rượu",
+      "romaji": "osake",
+      "part": 12,
+      "isKanji": false
+    },
+    {
+      "id": 125,
+      "jp": "いきます",
+      "reading": "いきます",
+      "vn": "Đi",
+      "romaji": "ikimasu",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 126,
+      "jp": "かえります",
+      "reading": "かえります",
+      "vn": "Trở về",
+      "romaji": "kaerimasu",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 127,
+      "jp": "のみます",
+      "reading": "のみます",
+      "vn": "Uống",
+      "romaji": "nomimasu",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 128,
+      "jp": "たべます",
+      "reading": "たべます",
+      "vn": "Ăn",
+      "romaji": "tabemasu",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 129,
+      "jp": "みます",
+      "reading": "みます",
+      "vn": "Xem",
+      "romaji": "mimasu",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 130,
+      "jp": "します",
+      "reading": "します",
+      "vn": "Làm",
+      "romaji": "shimasu",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 131,
+      "jp": "スキーをします",
+      "reading": "スキーをします",
+      "vn": "Trượt tuyết",
+      "romaji": "sukiiwoshimasu",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 132,
+      "jp": "いいですね",
+      "reading": "いいですね",
+      "vn": "Hay nhỉ",
+      "romaji": "iidesune",
+      "part": 13,
+      "isKanji": false
+    },
+    {
+      "id": 133,
+      "jp": "はなみ",
+      "reading": "はなみ",
+      "vn": "Ngắm hoa",
+      "romaji": "hanami",
+      "part": 13,
+      "isKanji": false
+    }
+  ]
+}

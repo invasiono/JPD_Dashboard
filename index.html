@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Tiếng Nhật & Luyện Gõ Kana (Romaji ➔ Hiragana / Katakana)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- WanaKana Library for Real-time Romaji to Kana conversion -->
+    <script src="https://unpkg.com/wanakana@5.3.1/wanakana.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        jp: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200/80 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- Logo & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchMainTab('vocab')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-blue-500/20">
+                    あ
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-900 leading-tight flex items-center gap-1.5">
+                        Nihongo Master
+                        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">SPA</span>
+                    </h1>
+                    <p class="text-xs text-gray-500" id="header-subtitle">Học từ vựng & Luyện gõ tiếng Nhật tức thì</p>
+                </div>
+            </div>
+
+            <!-- Tab Switcher Navigation -->
+            <nav class="flex items-center p-1 bg-gray-100 rounded-xl overflow-x-auto">
+                <button id="nav-vocab-btn" onclick="switchMainTab('vocab')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 bg-white text-blue-600 shadow-sm whitespace-nowrap">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    <span>Từ Vựng</span>
+                </button>
+                <button id="nav-typing-btn" onclick="switchMainTab('typing')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all flex items-center gap-1.5 whitespace-nowrap">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <span>Luyện Gõ</span>
+                </button>
+                <button id="nav-dict-btn" onclick="switchMainTab('dict')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all flex items-center gap-1.5 whitespace-nowrap">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span>Tra Cứu</span>
+                </button>
+                <button id="nav-manage-btn" onclick="switchMainTab('manage')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all flex items-center gap-1.5 whitespace-nowrap">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <span>Tùy Chỉnh</span>
+                </button>
+            </nav>
+
+            <!-- Sound Toggle -->
+            <button id="sound-toggle-btn" onclick="toggleSound()" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded-lg transition-colors" title="Bật/Tắt âm thanh hiệu ứng">
+                <svg id="sound-icon-on" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                <svg id="sound-icon-off" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
+
+        <!-- ======================================================== -->
+        <!-- TAB 1: HỌC TỪ VỰNG (QUIZ & WORD TYPING PRACTICE)        -->
+        <!-- ======================================================== -->
+        <section id="tab-vocab" class="space-y-6">
+            
+            <!-- Màn hình chính Từ vựng: Chọn Phần và Chế độ -->
+            <div id="vocab-home" class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 overflow-hidden">
+                <div class="p-6 sm:p-8">
+                    <div class="text-center max-w-lg mx-auto mb-8">
+                        <span id="vocab-total-badge" class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">Đang tải từ vựng...</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Chọn Phần Học & Phương Pháp</h2>
+                        <p id="vocab-subtitle-desc" class="text-gray-500 text-sm mt-2">Lựa chọn phần học phù hợp hoặc tùy chỉnh bài học theo ý bạn.</p>
+                    </div>
+
+                    <!-- Chọn chế độ học -->
+                    <div class="max-w-md mx-auto mb-8">
+                        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 text-center">Chế độ kiểm tra kiến thức</label>
+                        <div class="bg-gray-100 p-1.5 rounded-2xl flex gap-2 border border-gray-200">
+                            <button id="mode-quiz-btn" onclick="setMode('quiz')" class="flex-1 py-3 px-4 rounded-xl bg-white text-blue-700 font-bold shadow-sm transition-all flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                                <span>Trắc nghiệm</span>
+                            </button>
+                            <button id="mode-typing-btn" onclick="setMode('typing')" class="flex-1 py-3 px-4 rounded-xl text-gray-600 hover:text-gray-900 font-bold transition-all flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                <span>Luyện gõ từ</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Thanh điều khiển chọn nhiều phần (Multi-part Selection Toolbar) -->
+                    <div class="max-w-2xl mx-auto mb-3 flex flex-wrap items-center justify-between gap-2 px-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Chọn phần luyện tập:</span>
+                            <span id="selected-parts-summary" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 border border-blue-200">
+                                0 phần đã chọn
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs">
+                            <button type="button" onclick="selectAllVocabParts()" class="px-2.5 py-1 bg-gray-100 hover:bg-blue-50 text-gray-700 hover:text-blue-700 font-semibold rounded-lg transition-colors border border-gray-200">
+                                ✓ Chọn tất cả
+                            </button>
+                            <button type="button" onclick="deselectAllVocabParts()" class="px-2.5 py-1 bg-gray-100 hover:bg-red-50 text-gray-700 hover:text-red-700 font-semibold rounded-lg transition-colors border border-gray-200">
+                                ✕ Bỏ chọn
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Danh sách các nút chọn phần động -->
+                    <div id="vocab-parts-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-2xl mx-auto">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Nút bắt đầu học các phần đã chọn & Tùy chọn khác -->
+                    <div class="mt-6 max-w-2xl mx-auto space-y-3">
+                        <!-- Nút bắt đầu chính theo các phần đã tick chọn -->
+                        <button id="start-selected-parts-btn" onclick="startSelectedVocabSession()" class="w-full py-4 px-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-base rounded-2xl transition-all shadow-lg hover:shadow-indigo-500/25 flex items-center justify-center gap-2.5 transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                            <span id="start-selected-parts-text">🚀 Bắt đầu luyện tập (0 phần • 0 từ)</span>
+                        </button>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button onclick="startVocabSession(0)" class="flex-1 py-3 px-4 bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2">
+                                <span id="all-words-btn-text">🔥 Thử thách toàn bộ từ vựng</span>
+                            </button>
+                            <button onclick="switchMainTab('manage')" class="py-3 px-5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-sm rounded-xl transition-all border border-blue-200 flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                                <span>Tùy chỉnh bài học</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =============================== -->
+            <!-- MÀN HÌNH 1A: TRẮC NGHIỆM (QUIZ) -->
+            <!-- =============================== -->
+            <div id="quiz-screen" class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8 hidden">
+                <!-- Thanh tiến trình -->
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6 overflow-hidden">
+                    <div id="quiz-progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <!-- Header câu hỏi -->
+                <div class="flex justify-between items-center mb-6">
+                    <span id="quiz-question-counter" class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Câu 1/11</span>
+                    <span id="quiz-score-counter" class="text-sm font-bold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Điểm: 0</span>
+                </div>
+
+                <!-- Thẻ câu hỏi -->
+                <div id="quiz-question-card" class="text-center py-8 bg-gradient-to-b from-blue-50/50 to-transparent rounded-2xl border border-blue-100/60 mb-8 relative select-none transition-all">
+                    <span id="quiz-label-text" class="text-xs font-semibold text-blue-600 uppercase tracking-widest">Nghĩa tiếng Việt</span>
+                    <h2 id="quiz-question-text" class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 mb-2 transition-all">Cá</h2>
+                    <p id="quiz-sub-text" class="text-xs text-gray-400">Chọn từ tiếng Nhật tương ứng chính xác</p>
+
+                    <!-- Nút chuyển đổi xem nghĩa TV / Kanji khi từ là Kanji -->
+                    <div class="mt-2.5">
+                        <button type="button" id="quiz-kanji-toggle-btn" onclick="toggleQuizKanjiMeaning(event)" class="hidden inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold rounded-full shadow-sm cursor-pointer transition-all hover:scale-105">
+                            <span id="quiz-kanji-toggle-text">👁️ Bấm xem nghĩa tiếng Việt</span>
+                        </button>
+                    </div>
+
+                    <!-- Nút phát âm âm thanh khi đã trả lời -->
+                    <button id="quiz-audio-btn" onclick="speakCurrentWord(event)" class="hidden absolute top-4 right-4 p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors" title="Nghe phát âm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                    </button>
+                </div>
+
+                <!-- Lưới 4 đáp án -->
+                <div id="quiz-options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-6">
+                    <!-- Được render tự động bằng JS -->
+                </div>
+
+                <!-- Điều hướng đáy -->
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+                    <button onclick="quitVocabSession()" class="text-gray-400 hover:text-red-500 font-semibold text-sm transition-colors flex items-center gap-1">
+                        &larr; Dừng & Quay lại
+                    </button>
+                    <button id="next-quiz-btn" onclick="nextQuizQuestion()" class="hidden px-7 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                        <span>Tiếp theo</span>
+                        <span>&rarr;</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============================================== -->
+            <!-- MÀN HÌNH 1B: LUYỆN GÕ TỪ VỰNG (WORD TYPING IME) -->
+            <!-- ============================================== -->
+            <div id="typing-screen" class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8 hidden">
+                <!-- Thanh tiến trình -->
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6 overflow-hidden">
+                    <div id="typing-progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <!-- Header câu hỏi -->
+                <div class="flex justify-between items-center mb-6">
+                    <span id="typing-question-counter" class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Câu 1/11</span>
+                    <span id="typing-score-counter" class="text-sm font-bold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Điểm: 0</span>
+                </div>
+
+                <!-- Thẻ câu hỏi -->
+                <div id="typing-question-card" class="text-center py-6 bg-gradient-to-b from-indigo-50/50 to-transparent rounded-2xl border border-indigo-100/60 mb-6 relative select-none transition-all">
+                    <span id="typing-label-text" class="text-xs font-semibold text-indigo-600 uppercase tracking-widest">Nghĩa tiếng Việt</span>
+                    <h2 id="typing-question-text" class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 mb-2 transition-all">Cá</h2>
+                    <p id="typing-sub-text" class="text-xs text-gray-400">Gõ Romaji, hệ thống tự động đổi sang Hiragana/Katakana trực tiếp</p>
+
+                    <!-- Nút chuyển đổi xem nghĩa TV / Kanji khi từ là Kanji -->
+                    <div class="mt-2.5">
+                        <button type="button" id="typing-kanji-toggle-btn" onclick="toggleTypingKanjiMeaning(event)" class="hidden inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold rounded-full shadow-sm cursor-pointer transition-all hover:scale-105">
+                            <span id="typing-kanji-toggle-text">👁️ Bấm xem nghĩa tiếng Việt</span>
+                        </button>
+                    </div>
+
+                    <!-- Nút phát âm -->
+                    <button id="typing-audio-btn" onclick="speakCurrentWord(event)" class="hidden absolute top-4 right-4 p-2 text-indigo-600 hover:bg-indigo-100 rounded-full transition-colors" title="Nghe phát âm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                    </button>
+                </div>
+
+                <!-- Nút chuyển chế độ gõ cho bài tập từ vựng: Hiragana vs Katakana vs Tự động -->
+                <div class="max-w-md mx-auto mb-4 flex items-center justify-between gap-2 bg-gray-100 p-1.5 rounded-xl border border-gray-200">
+                    <span class="text-xs font-semibold text-gray-500 pl-2">Kiểu gõ:</span>
+                    <div class="flex gap-1">
+                        <button id="vocab-ime-auto" onclick="setVocabTypingMode('auto')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-white text-blue-700 shadow-sm transition-all">
+                            Tự động
+                        </button>
+                        <button id="vocab-ime-hira" onclick="setVocabTypingMode('toHiragana')" class="px-2.5 py-1 text-xs font-bold rounded-lg text-gray-600 hover:text-gray-900 transition-all">
+                            あ Hiragana
+                        </button>
+                        <button id="vocab-ime-kata" onclick="setVocabTypingMode('toKatakana')" class="px-2.5 py-1 text-xs font-bold rounded-lg text-gray-600 hover:text-gray-900 transition-all">
+                            ア Katakana
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ô nhập liệu thông minh -->
+                <div class="max-w-md mx-auto">
+                    <div class="relative">
+                        <input type="text" id="typing-input" class="w-full py-4 px-6 text-center text-2xl sm:text-3xl font-bold japanese-font border-2 border-gray-300 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all shadow-inner" placeholder="Gõ romaji ở đây..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    </div>
+                    
+                    <!-- Gợi ý cách gõ romaji (nhấn nút xem gợi ý) -->
+                    <div class="mt-2 text-center">
+                        <button id="hint-btn" onclick="toggleHint()" class="text-xs text-blue-600 hover:text-blue-800 underline font-medium">
+                            💡 Xem gợi ý Romaji
+                        </button>
+                        <p id="hint-text" class="text-xs text-gray-500 mt-1 font-mono hidden bg-blue-50 py-1 px-2 rounded-lg inline-block"></p>
+                    </div>
+
+                    <!-- Khung kết quả chấm điểm -->
+                    <div id="typing-feedback" class="mt-4 p-4 rounded-xl text-center hidden transition-all"></div>
+                </div>
+
+                <!-- Điều hướng đáy -->
+                <div class="flex justify-between items-center pt-6 mt-6 border-t border-gray-100">
+                    <button onclick="quitVocabSession()" class="text-gray-400 hover:text-red-500 font-semibold text-sm transition-colors flex items-center gap-1">
+                        &larr; Dừng & Quay lại
+                    </button>
+                    <button id="check-typing-btn" onclick="checkTypingAnswer()" class="px-7 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg">
+                        Kiểm tra (Enter)
+                    </button>
+                    <button id="next-typing-btn" onclick="nextTypingQuestion()" class="hidden px-7 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                        <span>Tiếp theo</span>
+                        <span>&rarr;</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- =============================== -->
+            <!-- MÀN HÌNH 1C: KẾT QUẢ TỔNG KẾT   -->
+            <!-- =============================== -->
+            <div id="result-screen" class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-10 text-center max-w-lg mx-auto hidden">
+                <div id="result-icon-container" class="w-20 h-20 mx-auto rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-4xl mb-4 shadow-inner">
+                    🎉
+                </div>
+                <h2 class="text-2xl font-extrabold text-gray-900">Hoàn Thành Bài Học!</h2>
+                <p id="result-subtitle" class="text-gray-500 text-sm mt-1">Bạn đã hoàn thành phần học này.</p>
+
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 my-6">
+                    <div class="text-5xl font-black text-blue-600" id="result-score-text">10 / 11</div>
+                    <div class="text-sm font-semibold text-gray-600 mt-2" id="result-percentage-text">Tỷ lệ chính xác: 91%</div>
+                    <p id="result-evaluation" class="text-xs text-blue-700 font-medium mt-1">Xuất sắc! Bạn nắm bài rất vững.</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="retrySession()" class="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-md">
+                        Làm lại bài này
+                    </button>
+                    <button onclick="quitVocabSession()" class="flex-1 py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl transition-all">
+                        Trang chủ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- TAB 2: LUYỆN GÕ KANA TỰ DO & THỬ THÁCH TỐC ĐỘ (SANDBOX)   -->
+        <!-- ======================================================== -->
+        <section id="tab-typing" class="space-y-6 hidden">
+            <!-- Header Tab Luyện gõ -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8">
+                <div class="max-w-xl mx-auto text-center mb-6">
+                    <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">Bàn Phím Romaji ➔ Kana Tức Thì</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Luyện Gõ Romaji Sang Tiếng Nhật</h2>
+                    <p class="text-gray-500 text-sm mt-2">
+                        Gõ Romaji từ tới đâu, ký tự sẽ <strong>tự động chuyển ngay tới đó</strong> sang Hiragana hoặc Katakana theo nút bạn chọn!
+                    </p>
+                </div>
+
+                <!-- Nút chọn chế độ gõ: Hiragana (あ) vs Katakana (ア) -->
+                <div class="max-w-md mx-auto mb-6">
+                    <div class="bg-gray-100 p-1.5 rounded-2xl flex gap-2 border border-gray-200 shadow-inner">
+                        <button id="btn-kana-hiragana" onclick="setKanaInputMode('toHiragana')" class="flex-1 py-3 px-4 rounded-xl bg-white text-indigo-600 font-bold shadow-md transition-all flex items-center justify-center gap-2">
+                            <span class="text-xl japanese-font">あ</span>
+                            <span>Hiragana (Chữ mềm)</span>
+                        </button>
+                        <button id="btn-kana-katakana" onclick="setKanaInputMode('toKatakana')" class="flex-1 py-3 px-4 rounded-xl text-gray-600 hover:text-gray-900 font-bold transition-all flex items-center justify-center gap-2">
+                            <span class="text-xl japanese-font">ア</span>
+                            <span>Katakana (Chữ cứng)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ô GÕ TỰ DO LỚN (INTERACTIVE PLAYGROUND) -->
+                <div class="max-w-2xl mx-auto space-y-4">
+                    <div class="relative">
+                        <textarea id="free-kana-input" rows="4" class="w-full p-5 text-2xl sm:text-3xl font-bold japanese-font text-gray-800 bg-slate-50 border-2 border-indigo-200 rounded-2xl focus:border-indigo-600 focus:bg-white focus:ring-4 focus:ring-indigo-100 outline-none transition-all shadow-inner resize-none" placeholder="Hãy thử gõ: konnichiwa, arigatou, tokyo, nihon..."></textarea>
+                        
+                        <!-- Badge trạng thái chuyển đổi ở góc textarea -->
+                        <div class="absolute bottom-3 right-4 flex items-center gap-2">
+                            <span id="active-kana-badge" class="text-xs font-bold px-2.5 py-1 bg-indigo-100 text-indigo-700 rounded-lg">
+                                Đang gõ: Hiragana (あ)
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Thanh công cụ hỗ trợ gõ -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-gray-50 p-3 rounded-xl border border-gray-200/80">
+                        <div class="flex items-center gap-2">
+                            <button onclick="speakText(document.getElementById('free-kana-input').value)" class="px-3 py-1.5 bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 rounded-lg text-xs font-semibold transition-all shadow-sm flex items-center gap-1.5" title="Phát âm tiếng Nhật chuẩn">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                                <span>Phát âm</span>
+                            </button>
+                            <button onclick="copyFreeText()" class="px-3 py-1.5 bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 rounded-lg text-xs font-semibold transition-all shadow-sm flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                <span id="copy-btn-text">Sao chép</span>
+                            </button>
+                            <button onclick="clearFreeInput()" class="px-3 py-1.5 bg-white hover:bg-red-50 text-gray-700 hover:text-red-600 border border-gray-200 rounded-lg text-xs font-semibold transition-all shadow-sm flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-gray-400 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                <span>Xóa</span>
+                            </button>
+                        </div>
+
+                        <!-- Live Romaji preview -->
+                        <div class="text-xs text-gray-500 font-mono flex items-center gap-1">
+                            <span class="font-sans font-bold text-gray-400">Romaji:</span>
+                            <span id="free-romaji-preview" class="text-indigo-600 font-bold bg-white px-2 py-0.5 rounded border border-gray-200">...</span>
+                        </div>
+                    </div>
+
+                    <!-- Mẹo gõ quy tắc Romaji tiếng Nhật -->
+                    <div class="bg-indigo-50/70 border border-indigo-100 rounded-xl p-4 text-xs text-indigo-900 leading-relaxed">
+                        <div class="font-bold mb-1.5 flex items-center gap-1.5 text-indigo-700">
+                            <span>💡 Quy tắc gõ Romaji cơ bản:</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[13px]">
+                            <div>&bull; Gõ <code>nn</code> hoặc <code>n'</code> để ra chữ <strong>ん / ン</strong> (n)</div>
+                            <div>&bull; Gõ đúp phụ âm (ví dụ: <code>matte</code>) để ra âm ngắt <strong>っ / ッ</strong> (待って)</div>
+                            <div>&bull; Gõ dấu gạch nối <code>-</code> để ra trường âm Katakana <strong>ー</strong></div>
+                            <div>&bull; Gõ <code>kya, kyu, kyo, sha, chu</code> để ra âm ghép <strong>きゃ, しゃ...</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHẾ ĐỘ THỬ THÁCH: PHẢN XẠ GÕ KANA NHANH (SPEED DRILL) -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-gray-100 pb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                            <span>⚡ Thử Thách Phản Xạ Gõ Kana</span>
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-1">Hệ thống đưa ra ký tự ngẫu nhiên, bạn gõ Romaji để máy tự đổi sang Kana và tính điểm!</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-center px-3 py-1 bg-amber-50 border border-amber-200 rounded-xl">
+                            <span class="text-[10px] font-bold uppercase text-amber-700 block">Chuỗi đúng (Streak)</span>
+                            <span id="drill-streak" class="text-lg font-black text-amber-600">0 🔥</span>
+                        </div>
+                        <div class="text-center px-3 py-1 bg-emerald-50 border border-emerald-200 rounded-xl">
+                            <span class="text-[10px] font-bold uppercase text-emerald-700 block">Đã hoàn thành</span>
+                            <span id="drill-count" class="text-lg font-black text-emerald-600">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thẻ Flashcard câu hỏi gõ Kana -->
+                <div class="max-w-md mx-auto text-center">
+                    <!-- Chọn bảng luyện Hiragana hoặc Katakana -->
+                    <div class="flex justify-center gap-2 mb-4">
+                        <button id="drill-mode-hira" onclick="setDrillMode('hiragana')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-700 shadow-sm transition-all">
+                            あ Luyện Hiragana
+                        </button>
+                        <button id="drill-mode-kata" onclick="setDrillMode('katakana')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all">
+                            ア Luyện Katakana
+                        </button>
+                    </div>
+
+                    <div class="py-8 bg-gradient-to-b from-gray-50 to-white rounded-3xl border-2 border-dashed border-gray-300 mb-6">
+                        <span id="drill-prompt-type" class="text-xs font-bold text-gray-400 uppercase tracking-widest">Ký tự mục tiêu:</span>
+                        <div id="drill-target-display" class="text-6xl sm:text-7xl font-black text-indigo-600 japanese-font my-3">
+                            あ
+                        </div>
+                        <div id="drill-hint-romaji" class="text-sm font-semibold text-gray-400 font-mono">
+                            Romaji: <span class="text-gray-700 font-bold">a</span>
+                        </div>
+                    </div>
+
+                    <!-- Ô gõ phím luyện phản xạ -->
+                    <div class="relative">
+                        <input type="text" id="drill-input" class="w-full py-4 px-6 text-center text-3xl font-bold japanese-font border-2 border-indigo-300 rounded-2xl focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 outline-none transition-all shadow-inner" placeholder="Gõ romaji tương ứng..." autocomplete="off">
+                        <div id="drill-feedback" class="mt-2 text-sm font-bold h-6"></div>
+                    </div>
+
+                    <!-- Nút bắt đầu lại thử thách hoặc đổi bảng -->
+                    <div class="flex justify-center gap-3 mt-4">
+                        <button onclick="nextDrillTarget()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-xs transition-all">
+                            Bỏ qua câu này &rarr;
+                        </button>
+                        <button onclick="resetDrill()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-xs transition-all">
+                            Làm lại từ đầu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- TAB 3: TRA CỨU & BẢNG CHỮ CÁI KANA (DICTIONARY & CHARTS)  -->
+        <!-- ======================================================== -->
+        <section id="tab-dict" class="space-y-6 hidden">
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8">
+                <!-- Chọn xem Bảng chữ cái hoặc 43 Từ vựng -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 pb-6 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Sổ Tay Tra Cứu Tiếng Nhật</h2>
+                        <p class="text-xs text-gray-500 mt-1">Bấm vào bất kỳ chữ hoặc từ nào để nghe phát âm giọng chuẩn bản xứ</p>
+                    </div>
+                    <div class="bg-gray-100 p-1.5 rounded-xl flex gap-1 border border-gray-200 text-xs font-bold">
+                        <button id="dict-tab-vocab-btn" onclick="switchDictSubTab('vocab')" class="px-3.5 py-2 rounded-lg bg-white text-blue-700 shadow-sm transition-all">
+                            Sổ Từ Vựng
+                        </button>
+                        <button id="dict-tab-hira-btn" onclick="switchDictSubTab('hiragana')" class="px-3.5 py-2 rounded-lg text-gray-600 hover:text-gray-900 transition-all">
+                            Bảng Hiragana
+                        </button>
+                        <button id="dict-tab-kata-btn" onclick="switchDictSubTab('katakana')" class="px-3.5 py-2 rounded-lg text-gray-600 hover:text-gray-900 transition-all">
+                            Bảng Katakana
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SUB-VIEW 1: DANH SÁCH TỪ VỰNG -->
+                <div id="dict-vocab-view" class="space-y-6">
+                    <!-- Thanh lọc theo phần động -->
+                    <div id="dict-filter-container" class="flex flex-wrap gap-2 items-center">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Lưới từ vựng dạng Flashcard -->
+                    <div id="dict-words-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <!-- Render tự động -->
+                    </div>
+                </div>
+
+                <!-- SUB-VIEW 2: BẢNG HIRAGANA (50 ÂM) -->
+                <div id="dict-hiragana-view" class="hidden space-y-4">
+                    <p class="text-xs text-gray-500">Bảng chữ cái Hiragana cơ bản (Gõ Romaji tương ứng để chuyển đổi):</p>
+                    <div id="hiragana-chart-container" class="grid grid-cols-5 gap-2 sm:gap-3 text-center">
+                        <!-- Render tự động -->
+                    </div>
+                </div>
+
+                <!-- SUB-VIEW 3: BẢNG KATAKANA (50 ÂM) -->
+                <div id="dict-katakana-view" class="hidden space-y-4">
+                    <p class="text-xs text-gray-500">Bảng chữ cái Katakana cơ bản (Chuyên dùng cho từ mượn nước ngoài):</p>
+                    <div id="katakana-chart-container" class="grid grid-cols-5 gap-2 sm:gap-3 text-center">
+                        <!-- Render tự động -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- TAB 4: TÙY CHỈNH & QUẢN LÝ BÀI HỌC (CUSTOM LESSONS)      -->
+        <!-- ======================================================== -->
+        <section id="tab-manage" class="space-y-6 hidden">
+            <!-- Header Card & Thống kê nhanh -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-6">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider">Tùy biến bài học</span>
+                            <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tự động lưu trên trình duyệt
+                            </span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-1">Tùy Chỉnh & Quản Lý Bài Học</h2>
+                        <p class="text-gray-500 text-xs sm:text-sm mt-1">Thêm, sửa, xóa phần học và từ vựng theo nhu cầu học tập của bạn.</p>
+                    </div>
+
+                    <!-- Nút thao tác nhanh -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="openWordModal()" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all shadow-md flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            <span>Thêm Từ Mới</span>
+                        </button>
+                        <button onclick="openPartModal()" class="px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl text-sm transition-all border border-indigo-200 flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Thêm Phần Mới</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Thống kê nhanh & Sao lưu dữ liệu -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                    <div class="p-4 bg-blue-50/70 border border-blue-100 rounded-xl">
+                        <span class="text-xs text-blue-600 font-semibold block">Tổng Phần Học</span>
+                        <span id="manage-stat-parts" class="text-2xl font-black text-blue-900 mt-1 block">5</span>
+                    </div>
+                    <div class="p-4 bg-indigo-50/70 border border-indigo-100 rounded-xl">
+                        <span class="text-xs text-indigo-600 font-semibold block">Tổng Từ Vựng</span>
+                        <span id="manage-stat-words" class="text-2xl font-black text-indigo-900 mt-1 block">71</span>
+                    </div>
+                    <div class="p-4 bg-emerald-50/70 border border-emerald-100 rounded-xl">
+                        <button onclick="exportDataJSON()" class="w-full h-full text-left flex flex-col justify-between group">
+                            <span class="text-xs text-emerald-600 font-semibold flex items-center justify-between">
+                                <span>Sao Lưu (Export)</span>
+                                <span>&darr;</span>
+                            </span>
+                            <span class="text-xs font-bold text-emerald-800 group-hover:underline mt-1 block">Tải tệp JSON</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-amber-50/70 border border-amber-100 rounded-xl">
+                        <button onclick="document.getElementById('import-json-input').click()" class="w-full h-full text-left flex flex-col justify-between group">
+                            <span class="text-xs text-amber-600 font-semibold flex items-center justify-between">
+                                <span>Khôi Phục (Import)</span>
+                                <span>&uarr;</span>
+                            </span>
+                            <span class="text-xs font-bold text-amber-800 group-hover:underline mt-1 block">Nạp từ tệp JSON</span>
+                        </button>
+                        <input type="file" id="import-json-input" class="hidden" accept=".json" onchange="importDataJSON(event)">
+                    </div>
+                </div>
+
+                <!-- Nút khôi phục dữ liệu mặc định ban đầu -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-500 gap-2">
+                    <span>💡 Cần làm lại từ đầu? Bạn có thể khôi phục lại bộ 71 từ vựng & 5 phần học gốc bất cứ lúc nào.</span>
+                    <button onclick="resetToDefaultData()" class="px-3.5 py-1.5 bg-white hover:bg-red-50 text-red-600 font-semibold border border-red-200 rounded-lg transition-all hover:border-red-300 self-start sm:self-auto whitespace-nowrap">
+                        Khôi phục mặc định
+                    </button>
+                </div>
+            </div>
+
+            <!-- Khối 1: Quản lý các Phần học -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                            <span>📚 Danh Sách Các Phần Học</span>
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Bấm "Sửa" để đổi tên/mô tả hoặc "Xóa" để xóa phần và từ tương ứng.</p>
+                    </div>
+                    <button onclick="openPartModal()" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 font-bold rounded-lg text-xs transition-all flex items-center gap-1">
+                        <span>+ Thêm Phần</span>
+                    </button>
+                </div>
+
+                <!-- Lưới hiển thị các phần -->
+                <div id="manage-parts-list" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Khối 2: Quản lý Danh sách Từ vựng -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-gray-100 p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                            <span>📝 Danh Sách Từ Vựng Chi Tiết</span>
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Xem, chỉnh sửa nội dung, đổi phần hoặc xóa từng từ vựng.</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="openBulkModal()" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl text-xs transition-all shadow-sm flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                            <span>📋 Dán Nhập Hàng Loạt</span>
+                        </button>
+                        <button onclick="openWordModal()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-all shadow-sm flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            <span>Thêm Từ Vựng Mới</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Thanh tìm kiếm & Lọc từ vựng -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                    <div class="sm:col-span-2 relative">
+                        <input type="text" id="manage-search-input" oninput="renderManageWordsTable()" placeholder="Tìm từ vựng theo tiếng Nhật, Romaji hoặc nghĩa tiếng Việt..." class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 outline-none transition-all">
+                        <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <div>
+                        <select id="manage-filter-part" onchange="renderManageWordsTable()" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 outline-none transition-all">
+                            <option value="0">Tất cả các phần</option>
+                            <!-- Dynamic part options -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Bảng danh sách từ vựng -->
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full text-left text-sm text-gray-600">
+                        <thead class="bg-gray-50 text-xs font-bold text-gray-500 uppercase border-b border-gray-200">
+                            <tr>
+                                <th class="px-4 py-3">STT</th>
+                                <th class="px-4 py-3">Tiếng Nhật</th>
+                                <th class="px-4 py-3">Romaji</th>
+                                <th class="px-4 py-3">Nghĩa tiếng Việt</th>
+                                <th class="px-4 py-3">Phần học</th>
+                                <th class="px-4 py-3 text-right">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manage-words-table-body" class="divide-y divide-gray-100">
+                            <!-- Rendered by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Thống kê số lượng hiển thị -->
+                <div class="mt-3 flex items-center justify-between text-xs text-gray-500">
+                    <span id="manage-words-count-info">Hiển thị 0 từ vựng</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-xs text-gray-400">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>Ứng dụng học tiếng Nhật & Luyện gõ Kana trực tiếp (SPA)</span>
+            <span>Hỗ trợ chuyển Romaji ➔ Hiragana / Katakana tức thì với WanaKana & Web Speech API</span>
+        </div>
+    </footer>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 1: THÊM / CHỈNH SỬA TỪ VỰNG                        -->
+    <!-- ======================================================== -->
+    <div id="modal-word" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-gray-100 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 id="modal-word-title" class="text-lg font-bold text-gray-900">Thêm Từ Vựng Mới</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Nhập thông tin từ vựng để bổ sung vào bài học</p>
+                </div>
+                <button type="button" onclick="closeWordModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form onsubmit="saveWordForm(event)" class="p-6 space-y-4">
+                <input type="hidden" id="word-form-id" value="">
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Thuộc phần học <span class="text-red-500">*</span></label>
+                    <select id="word-form-part" required class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-300 rounded-xl text-sm font-semibold focus:border-blue-500 focus:bg-white outline-none transition-all">
+                        <!-- Rendered by JS -->
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Từ tiếng Nhật (Kana / Kanji) <span class="text-red-500">*</span></label>
+                    <input type="text" id="word-form-jp" required oninput="handleWordJpInput(this.value)" placeholder="Ví dụ: さかな, コーヒー, おちゃ, 月..." class="w-full px-3.5 py-2.5 text-lg font-bold japanese-font bg-gray-50 border border-gray-300 rounded-xl focus:border-blue-500 focus:bg-white outline-none transition-all">
+                    <p class="text-[11px] text-gray-400 mt-1">Từ viết bằng Kanji hoặc Kana.</p>
+                </div>
+
+                <!-- Nút bật tắt: Có phải Hán tự (Kanji) hay không -->
+                <div class="flex items-center justify-between p-3 bg-amber-50/60 border border-amber-200/80 rounded-xl">
+                    <div class="pr-2">
+                        <label for="word-form-is-kanji" class="block text-xs font-bold text-gray-800 cursor-pointer flex items-center gap-1.5">
+                            <span>Có phải Hán tự (Kanji)?</span>
+                            <span class="px-1.5 py-0.2 bg-amber-200/70 text-amber-800 text-[10px] font-extrabold rounded">Kanji</span>
+                        </label>
+                        <p class="text-[11px] text-gray-500 mt-0.5">
+                            Bật: Trắc nghiệm & Luyện gõ sẽ hiện chữ Kanji này mà không hiện nghĩa (bấm vào mới hiện nghĩa tiếng Việt).
+                        </p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                        <input type="checkbox" id="word-form-is-kanji" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+                    </label>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Cách đọc Kana (Furigana / Hiragana)</label>
+                    <input type="text" id="word-form-reading" oninput="handleWordReadingInput(this.value)" placeholder="Ví dụ: つき, いちがつ, なん/なに... (bỏ trống nếu giống tiếng Nhật)" class="w-full px-3.5 py-2.5 text-base font-bold japanese-font bg-gray-50 border border-gray-300 rounded-xl focus:border-blue-500 focus:bg-white outline-none transition-all">
+                    <p class="text-[11px] text-gray-400 mt-1">Dùng để phiên âm và chấm điểm phát âm / gõ phím khi từ viết bằng chữ Hán Kanji.</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Phiên âm Romaji</label>
+                    <input type="text" id="word-form-romaji" placeholder="Ví dụ: sakana, koohii, ocha..." class="w-full px-3.5 py-2.5 font-mono text-sm bg-gray-50 border border-gray-300 rounded-xl focus:border-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nghĩa tiếng Việt <span class="text-red-500">*</span></label>
+                    <input type="text" id="word-form-vn" required placeholder="Ví dụ: Cá, Cà phê, Trà..." class="w-full px-3.5 py-2.5 text-sm font-semibold bg-gray-50 border border-gray-300 rounded-xl focus:border-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+
+                <div class="flex gap-2 pt-4 border-t border-gray-100">
+                    <button type="button" onclick="closeWordModal()" class="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl text-sm transition-all">
+                        Hủy
+                    </button>
+                    <button type="submit" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all shadow-md">
+                        Lưu từ vựng
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 2: THÊM / CHỈNH SỬA PHẦN HỌC                       -->
+    <!-- ======================================================== -->
+    <div id="modal-part" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-gray-100 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 id="modal-part-title" class="text-lg font-bold text-gray-900">Thêm Phần Học Mới</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Tạo chuyên đề bài học mới theo kế hoạch học tập</p>
+                </div>
+                <button type="button" onclick="closePartModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form onsubmit="savePartForm(event)" class="p-6 space-y-4">
+                <input type="hidden" id="part-form-id" value="">
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Tên phần học <span class="text-red-500">*</span></label>
+                    <input type="text" id="part-form-name" required placeholder="Ví dụ: Động từ N5 cơ bản" class="w-full px-3.5 py-2.5 text-sm font-bold bg-gray-50 border border-gray-300 rounded-xl focus:border-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Mô tả ngắn</label>
+                    <input type="text" id="part-form-desc" placeholder="Ví dụ: taberu, nomu, iku, kuru..." class="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-300 rounded-xl focus:border-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Màu sắc chủ đạo</label>
+                    <select id="part-form-color" class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-300 rounded-xl text-sm font-semibold focus:border-blue-500 focus:bg-white outline-none transition-all">
+                        <option value="blue">Xanh Dương (Blue)</option>
+                        <option value="emerald">Xanh Lá (Emerald)</option>
+                        <option value="amber">Cam Hổ Phách (Amber)</option>
+                        <option value="purple">Tím (Purple)</option>
+                        <option value="rose">Hồng Đỏ (Rose)</option>
+                        <option value="indigo">Chàm (Indigo)</option>
+                    </select>
+                </div>
+
+                <div class="flex gap-2 pt-4 border-t border-gray-100">
+                    <button type="button" onclick="closePartModal()" class="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl text-sm transition-all">
+                        Hủy
+                    </button>
+                    <button type="submit" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all shadow-md">
+                        Lưu phần học
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+        <!-- ======================================================== -->
+    <!-- MODAL 3: DÁN & NHẬP TỪ VỰNG HÀNG LOẠT (BULK IMPORT)      -->
+    <!-- ======================================================== -->
+    <div id="modal-bulk" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[92vh] shadow-2xl border border-gray-100 flex flex-col overflow-hidden">
+            <!-- Modal Header -->
+            <div class="p-5 sm:p-6 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-emerald-50/60 to-teal-50/40">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                        📋
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-gray-900">Dán & Nhập Từ Vựng Hàng Loạt</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Dán nhanh danh sách từ vựng từ file ghi chú, SGK hoặc từ điển</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeBulkModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1">
+                <!-- Chọn phần học để nạp từ vào -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3.5 bg-gray-50 border border-gray-200 rounded-xl">
+                    <div class="flex-1">
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">
+                            Lưu vào Phần học: <span class="text-red-500">*</span>
+                        </label>
+                        <select id="bulk-import-part" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm font-semibold focus:border-emerald-500 outline-none transition-all">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+                    <div class="self-end sm:self-auto sm:pt-4">
+                        <button type="button" onclick="promptCreatePartForBulk()" class="px-3 py-2 bg-white hover:bg-emerald-50 text-emerald-700 font-bold border border-emerald-300 rounded-lg text-xs transition-all whitespace-nowrap shadow-sm">
+                            + Tạo phần mới
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hướng dẫn định dạng & Nút hành động nhanh -->
+                <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <span class="text-gray-500 flex items-center gap-1">
+                        <span>💡 Định dạng 3 dòng:</span>
+                        <code class="px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded font-mono">[Tiếng Nhật/Kanji] &bull; [Cách đọc Kana] &bull; [Nghĩa TV]</code>
+                    </span>
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" onclick="pasteSampleKanjiList()" class="px-2.5 py-1 bg-emerald-100/70 hover:bg-emerald-200 text-emerald-800 font-semibold rounded-lg transition-colors">
+                            ✨ Dán thử mẫu 28 từ Kanji
+                        </button>
+                        <button type="button" onclick="clearBulkText()" class="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold rounded-lg transition-colors">
+                            🧹 Xóa trắng
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Textarea nhập liệu -->
+                <div>
+                    <textarea id="bulk-import-textarea" rows="7" oninput="previewBulkText()" placeholder="Dán nội dung vào đây... Ví dụ:&#10;月&#10;つき&#10;mặt trăng&#10;&#10;一月&#10;いちがつ&#10;tháng 1&#10;&#10;十二月&#10;じゅうにがつ&#10;Tháng 12" class="w-full p-3.5 bg-gray-50 border border-gray-300 rounded-xl font-mono text-sm focus:border-emerald-500 focus:bg-white outline-none transition-all resize-y"></textarea>
+                </div>
+
+                <!-- Xem trước kết quả nhận diện (Live Preview) -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-gray-700 uppercase flex items-center gap-1.5">
+                            <span>🔍 Xem trước kết quả</span>
+                            <span id="bulk-preview-badge" class="px-2 py-0.5 bg-gray-200 text-gray-700 rounded-full text-[11px] font-bold">0 từ</span>
+                        </span>
+                        <span class="text-[11px] text-gray-400">Tự động nhận diện Kana, Kanji & Romaji</span>
+                    </div>
+
+                    <div class="max-h-48 overflow-y-auto rounded-xl border border-gray-200 bg-white">
+                        <table class="w-full text-left text-xs text-gray-600">
+                            <thead class="bg-gray-50 text-[11px] font-bold text-gray-500 uppercase border-b border-gray-200 sticky top-0">
+                                <tr>
+                                    <th class="px-3 py-2">STT</th>
+                                    <th class="px-3 py-2">Tiếng Nhật</th>
+                                    <th class="px-3 py-2">Cách đọc</th>
+                                    <th class="px-3 py-2">Romaji</th>
+                                    <th class="px-3 py-2">Nghĩa tiếng Việt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bulk-preview-tbody" class="divide-y divide-gray-100">
+                                <tr>
+                                    <td colspan="5" class="px-3 py-6 text-center text-gray-400">
+                                        Hãy dán danh sách từ vào ô trên để xem trước tại đây.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 sm:p-5 border-t border-gray-100 flex items-center justify-between gap-3 bg-gray-50/70">
+                <button type="button" onclick="closeBulkModal()" class="px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded-xl text-xs transition-all">
+                    Đóng
+                </button>
+                <button type="button" id="bulk-confirm-btn" onclick="executeBulkImport()" disabled class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold rounded-xl text-xs transition-all shadow-md flex items-center gap-1.5">
+                    <span>✅ Thêm Vào Danh Sách</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- ======================================================== -->
+    <!-- APPLICATION SCRIPTS (MODULAR ARCHITECTURE)               -->
+    <!-- ======================================================== -->
+    <!-- 1. Dữ liệu mặc định & Cấu hình -->
+    <script src="js/data/defaultData.js"></script>
+
+    <!-- 2. Các dịch vụ hệ thống (Services) -->
+    <script src="js/services/audio.js"></script>
+    <script src="js/services/storage.js"></script>
+
+    <!-- 3. Các module chức năng (Feature Modules) -->
+    <script src="js/modules/vocab.js"></script>
+    <script src="js/modules/kanaTyping.js"></script>
+    <script src="js/modules/dictionary.js"></script>
+    <script src="js/modules/manage.js"></script>
+
+    <!-- 4. Điều phối & Khởi tạo ứng dụng chính (App Core & Router) -->
+    <script src="js/app.js"></script>
+</body>
+</html>

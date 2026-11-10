@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Nihongo Master - Custom Styles
+   ========================================================================== */
+
+/* Thiết lập font chữ & nền tảng */
+body {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    background: linear-gradient(135deg, #f0f4fd 0%, #e8edf9 100%);
+    min-height: 100vh;
+}
+
+/* Font chữ chuyên biệt hiển thị tiếng Nhật sắc nét */
+.japanese-font {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* Tùy chỉnh thanh cuộn đẹp mắt (Webkit Custom Scrollbar) */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Hiệu ứng nhịp đập nhẹ nhàng (Soft Pulse Animation) */
+@keyframes softPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.015);
+    }
+}
+
+.animate-soft {
+    animation: softPulse 2.5s infinite ease-in-out;
+}
+
+/* Cắt ngắn chữ nếu dài quá số dòng (Line Clamp) */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Hiệu ứng chuyển đổi mềm mại khi lật nghĩa Kanji */
+.kanji-flip-anim {
+    animation: kanjiFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes kanjiFadeIn {
+    0% {
+        opacity: 0.2;
+        transform: translateY(-4px) scale(0.97);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
